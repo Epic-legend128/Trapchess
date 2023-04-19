@@ -4,56 +4,34 @@ using UnityEngine;
 
 public class ChessBoard : MonoBehaviour
 {
+    [SerializeField] private int TILES_X, TILES_Y;
 
-    private int TILECOUNT_X = 8;
-    private int TILECOUNT_Y = 8;
-    private GameObject[,] tiles;
+    [SerializeField] private Tile TilePrefab;
 
+    [SerializeField] private Transform Camera;
 
-    private void Awake()
+    void Start()
     {
-        GenerateAllTiles(1, TILECOUNT_X, TILECOUNT_Y);
+        GenerateGrid();
     }
 
-    private void GenerateAllTiles(float tileSize, int tileCountX, int tileCountY)
+    void GenerateGrid()
     {
-        tiles = new GameObject[tileCountX, tileCountY];
-
-        for (int x = 0; x < tileCountX; x++)
+        for(int x = 0; x < TILES_X; x++)
         {
-
-            for (int y = 0; y < tileCountY; y++)
+            for(int y = 0; y < TILES_Y; y++)
             {
-                tiles[x, y] = GenerateSingleTiles(tileSize, x, y);
+                var spawnedTile = Instantiate(TilePrefab, new Vector3(x,y), Quaternion.identity);
 
+                spawnedTile.name = $"Space x{x}, y{y}";
+
+                var isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0); 
+                spawnedTile.init(isOffset);
             }
         }
 
-    }
-
-    private GameObject GenerateSingleTiles(float tileSize, int x, int y)
-    {
-        GameObject tileObject = new GameObject(string.Format("X:{0}, Y:{1}", x, y));
-        tileObject.transform.parent = transform;
-
-        Mesh mesh = new Mesh();
-        tileObject.AddComponent<MeshFilter>().mesh = mesh;
-        tileObject.AddComponent<MeshRenderer>();
-
-        Vector3[] vertices = new Vector3[4];
-        vertices[0] = new Vector3(x * tileSize, 0, y * tileSize);
-        vertices[1] = new Vector3(x * tileSize, 0, (y + 1) * tileSize);
-        vertices[2] = new Vector3((x + 1) * tileSize, 0, y * tileSize);
-        vertices[3] = new Vector3((x + 1) * tileSize, 0, (y + 1) * tileSize);
-
-        int[] tris = new int[] { 0, 1, 2, 1, 3, 2 };
-
-        mesh.vertices = vertices;
-        mesh.triangles = tris;
-
-        tileObject.AddComponent<BoxCollider>();
-
-        return tileObject;
+        Camera.transform.position = new Vector3(4, 3, -1);
 
     }
+
 }
