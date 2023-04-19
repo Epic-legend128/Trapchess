@@ -1,16 +1,15 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const express = require('express')
+const app = express()
+const port = 3000
 
-app.get('/', (req, res) => {
-    res.send('Hello, World');
+app.get("/", (req, res) => {
+    res.send('<h1> hello world </h1>')
 })
-
 try {
     app.listen(port, () => {
-        console.log(`[STARTED] -> Running on port ${port}`);
+        console.log(`[STARTED] Running on port ${port}`)
     })
 }
 catch (err) {
-    console.log(`[ERROR] -> ${err.name + ":     " + err.message} `);
+    console.log(`[ERROR] -> ${err.name + " :   " + err.message}`)
 }
