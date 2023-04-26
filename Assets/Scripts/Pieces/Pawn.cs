@@ -8,14 +8,32 @@ public class Pawn : ChessPieceClass
     {
         List<Vector2Int> r = new List<Vector2Int>();
 
-        int direction = (team == 0) ? 1 : -1;
+        int direction = 1;/*(team == 0) ? 1 : -1*/
+        int lowLimit = (team == 1) ? 0 : tileCountX / 2;
 
-        if (board[currentX, currentY + direction] == null)
+        for (int i = 1; i <= 3; i++)
         {
-            r.Add(new Vector2Int(currentX, currentY + direction));
+            //forward
+            if (currentY + direction * i < tileCountY && board[currentX, currentY + direction * i] == null)
+            {
+                r.Add(new Vector2Int(currentX, currentY + direction * i));
+            }
+
+            //top right
+            if (currentY + direction * i < tileCountY && currentX + i < lowLimit + tileCountX / 2 && board[currentX + i, currentY + direction * i] == null)
+            {
+                r.Add(new Vector2Int(currentX + i, currentY + direction * i));
+            }
+
+            //top left
+            if (currentY + direction * i < tileCountY && currentX - i >= lowLimit && board[currentX - i, currentY + direction * i] == null)
+            {
+                r.Add(new Vector2Int(currentX - i, currentY + direction * i));
+            }
         }
 
-        if (board[currentX, currentY + direction] == null)
+        //the extra step at the second rank
+        /* if (board[currentX, currentY + direction] == null)
         {
             if (team == 0 && currentY == 1 && board[currentX, currentY + (direction * 2)] == null)
             {
@@ -25,8 +43,10 @@ public class Pawn : ChessPieceClass
             {
                 r.Add(new Vector2Int(currentX, currentY + (direction * 2)));
             }
-        }
-        if (currentX != tileCountX - 1)
+        } */
+
+        //eating
+        /* if (currentX != tileCountX - 1)
         {
             if (board[currentX + 1, currentY + direction] != null && board[currentX + 1, currentY + direction].team != team)
             {
@@ -41,7 +61,7 @@ public class Pawn : ChessPieceClass
                 r.Add(new Vector2Int(currentX - 1, currentY + direction));
             }
 
-        }
+        } */
 
 
         return r;
