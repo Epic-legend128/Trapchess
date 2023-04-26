@@ -172,32 +172,32 @@ public class Chessboard : MonoBehaviour
         int White = 0;
         int Red = 1;
 
-        ActivePiece[0, 0] = GenerateOnePiece(ChessPieceType.Rook, White);
-        ActivePiece[1, 0] = GenerateOnePiece(ChessPieceType.Knight, White);
-        ActivePiece[2, 0] = GenerateOnePiece(ChessPieceType.Bishop, White);
-        ActivePiece[3, 0] = GenerateOnePiece(ChessPieceType.Queen, White);
-        ActivePiece[4, 0] = GenerateOnePiece(ChessPieceType.King, White);
-        ActivePiece[5, 0] = GenerateOnePiece(ChessPieceType.Bishop, White);
-        ActivePiece[6, 0] = GenerateOnePiece(ChessPieceType.Knight, White);
-        ActivePiece[7, 0] = GenerateOnePiece(ChessPieceType.Rook, White);
-        ActivePiece[0, 7] = GenerateOnePiece(ChessPieceType.Rook, Red);
-        ActivePiece[1, 7] = GenerateOnePiece(ChessPieceType.Knight, Red);
-        ActivePiece[2, 7] = GenerateOnePiece(ChessPieceType.Bishop, Red);
-        ActivePiece[3, 7] = GenerateOnePiece(ChessPieceType.Queen, Red);
-        ActivePiece[4, 7] = GenerateOnePiece(ChessPieceType.King, Red);
-        ActivePiece[5, 7] = GenerateOnePiece(ChessPieceType.Bishop, Red);
-        ActivePiece[6, 7] = GenerateOnePiece(ChessPieceType.Knight, Red);
-        ActivePiece[7, 7] = GenerateOnePiece(ChessPieceType.Rook, Red);
-
-        for (int i = 0; i < X_TILES; i++)
+        for (int i = 0; i < X_TILES/2; i++)
         {
-            ActivePiece[i, 6] = GenerateOnePiece(ChessPieceType.Pawn, Red);
+            ActivePiece[i, 0] = GenerateOnePiece(ChessPieceType.Pawn, Red);
         }
 
-        for (int i = 0; i < X_TILES; i++)
+        for (int i = 0; i < X_TILES/2; i++)
         {
-            ActivePiece[i, 1] = GenerateOnePiece(ChessPieceType.Pawn, White);
+            ActivePiece[X_TILES/2+i, 0] = GenerateOnePiece(ChessPieceType.Pawn, White);
         }
+        
+        /* ActivePiece[0, 0] = GenerateOnePiece(ChessPieceType.Rook, White); */
+        /* ActivePiece[1, 0] = GenerateOnePiece(ChessPieceType.Knight, White); */
+        /* ActivePiece[2, 0] = GenerateOnePiece(ChessPieceType.Bishop, White); */
+        /* ActivePiece[3, 0] = GenerateOnePiece(ChessPieceType.Queen, White) ; */
+        /* ActivePiece[4, 0] = GenerateOnePiece(ChessPieceType.King, White); */
+        /* ActivePiece[5, 0] = GenerateOnePiece(ChessPieceType.Bishop, White); */
+        /* ActivePiece[6, 0] = GenerateOnePiece(ChessPieceType.Knight, White); */
+        /* ActivePiece[7, 0] = GenerateOnePiece(ChessPieceType.Rook, White); */
+        /* ActivePiece[0, 7] = GenerateOnePiece(ChessPieceType.Rook, Red); */
+        /* ActivePiece[1, 7] = GenerateOnePiece(ChessPieceType.Knight, Red); */
+        /* ActivePiece[2, 7] = GenerateOnePiece(ChessPieceType.Bishop, Red); */
+        /* ActivePiece[3, 7] = GenerateOnePiece(ChessPieceType.Queen, Red); */
+        /* ActivePiece[4, 7] = GenerateOnePiece(ChessPieceType.King, Red); */
+        /* ActivePiece[5, 7] = GenerateOnePiece(ChessPieceType.Bishop, Red); */
+        /* ActivePiece[6, 7] = GenerateOnePiece(ChessPieceType.Knight, Red); */
+        /* ActivePiece[7, 7] = GenerateOnePiece(ChessPieceType.Rook, Red); */
     }
     private ChessPieceClass GenerateOnePiece(ChessPieceType type, int team)
     {
