@@ -85,7 +85,7 @@ public class ChessBoard : MonoBehaviour
             {
                 if (ActivePiece[collisionPosition.x, collisionPosition.y] != null)
                 {
-                    if ((ActivePiece[collisionPosition.x, collisionPosition.y].team == 0 && _Turn_ == true)|| (ActivePiece[collisionPosition.x, collisionPosition.y].team ==1 && _Turn_ == false))
+                    if ((ActivePiece[collisionPosition.x, collisionPosition.y].team == 1 && _Turn_ == true)|| (ActivePiece[collisionPosition.x, collisionPosition.y].team == 0 && _Turn_ == false))
                     {
                         _Dragging_ = ActivePiece[collisionPosition.x, collisionPosition.y];
 
@@ -198,12 +198,12 @@ public class ChessBoard : MonoBehaviour
         //pawns
         for (int i = 0; i < X_TILES/2; i++)
         {
-            ActivePiece[i, 0] = GenerateOnePiece(ChessPieceType.Pawn, Red);
+            ActivePiece[i, 0] = GenerateOnePiece(ChessPieceType.Pawn, White);
         }
 
         for (int i = 0; i < X_TILES/2; i++)
         {
-            ActivePiece[i+(X_TILES/2), 0] = GenerateOnePiece(ChessPieceType.Pawn, White);
+            ActivePiece[i+(X_TILES/2), 0] = GenerateOnePiece(ChessPieceType.Pawn, Red);
         }
     }
 

@@ -12,26 +12,38 @@ public class Pawn : ChessPieceClass
         List<Vector2Int> r = new List<Vector2Int>();
 
         int direction = 1;
-        int lowLimit = (team == 1) ? 0 : tileCountX / 2;
+        int lowLimit = (team == 0) ? 0 : tileCountX / 2;
 
+        bool fwd = true;
+        bool right = true;
+        bool left = true;
         for (int i = 1; i <= MAX_STEPS; i++)
         {
             //forward
-            if (currentY + direction * i < tileCountY && board[currentX, currentY + direction * i] == null)
+            if (fwd && currentY + direction * i < tileCountY)
             {
-                r.Add(new Vector2Int(currentX, currentY + direction * i));
+                if (board[currentX, currentY + direction * i] == null)
+                    r.Add(new Vector2Int(currentX, currentY + direction * i));
+                else
+                    fwd = false;
             }
 
             //top right diagonal
-            if (currentY + direction * i < tileCountY && currentX + i < lowLimit + tileCountX / 2 && board[currentX + i, currentY + direction * i] == null)
+            if (right && currentY + direction * i < tileCountY && currentX + i < lowLimit + tileCountX / 2)
             {
-                r.Add(new Vector2Int(currentX + i, currentY + direction * i));
+                if  (board[currentX + i, currentY + direction * i] == null)
+                    r.Add(new Vector2Int(currentX + i, currentY + direction * i));
+                else
+                    right = false;
             }
 
             //top left diagonal
-            if (currentY + direction * i < tileCountY && currentX - i >= lowLimit && board[currentX - i, currentY + direction * i] == null)
+            if (left && currentY + direction * i < tileCountY && currentX - i >= lowLimit)
             {
-                r.Add(new Vector2Int(currentX - i, currentY + direction * i));
+                if (board[currentX - i, currentY + direction * i] == null)
+                    r.Add(new Vector2Int(currentX - i, currentY + direction * i));
+                else
+                    left = false;
             }
         }
 
