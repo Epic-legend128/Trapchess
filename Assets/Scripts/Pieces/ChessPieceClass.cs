@@ -12,6 +12,7 @@ public enum ChessPieceType
     Queen = 5,
     King = 6,
 }
+
 public class ChessPieceClass : MonoBehaviour
 {
     public int team;
@@ -31,6 +32,7 @@ public class ChessPieceClass : MonoBehaviour
 
         return r;
     }
+
     private void Update()
     {
         transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 10);
@@ -45,6 +47,7 @@ public class ChessPieceClass : MonoBehaviour
             transform.position = desiredPosition;
         }
     }
+    
     public virtual void SetScale(Vector3 scale, bool force = false)
     {
         desiredScale = scale;

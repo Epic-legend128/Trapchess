@@ -85,7 +85,7 @@ public class ChessBoard : MonoBehaviour
             {
                 if (ActivePiece[collisionPosition.x, collisionPosition.y] != null)
                 {
-                    if ((ActivePiece[collisionPosition.x, collisionPosition.y].team == 1 && _Turn_ == true)|| (ActivePiece[collisionPosition.x, collisionPosition.y].team == 0 && _Turn_ == false))
+                    if ((ActivePiece[collisionPosition.x, collisionPosition.y].team == 1 && _Turn_)|| (ActivePiece[collisionPosition.x, collisionPosition.y].team == 0 && !_Turn_))
                     {
                         _Dragging_ = ActivePiece[collisionPosition.x, collisionPosition.y];
 
@@ -105,10 +105,9 @@ public class ChessBoard : MonoBehaviour
                 }
                 _Dragging_ = null;
                 RemoveHighlight();
-
             }
 
-            if (_Dragging_ == true)
+            if (_Dragging_)
             {
                 Plane horizontalPlane = new Plane(Vector3.up, Vector3.up * offsetForY);
                 float distance = 0.0f;
@@ -166,7 +165,6 @@ public class ChessBoard : MonoBehaviour
 
         // mesh.RecalculateNormals();
 
-
         return tileObject;
     }
 
@@ -176,24 +174,6 @@ public class ChessBoard : MonoBehaviour
 
         int White = 0;
         int Red = 1;
-
-        //pieces in a regular chess board
-        /* ActivePiece[0, 0] = GenerateOnePiece(ChessPieceType.Rook, White);
-        ActivePiece[1, 0] = GenerateOnePiece(ChessPieceType.Knight, White);
-        ActivePiece[2, 0] = GenerateOnePiece(ChessPieceType.Bishop, White);
-        ActivePiece[3, 0] = GenerateOnePiece(ChessPieceType.Queen, White);
-        ActivePiece[4, 0] = GenerateOnePiece(ChessPieceType.King, White);
-        ActivePiece[5, 0] = GenerateOnePiece(ChessPieceType.Bishop, White);
-        ActivePiece[6, 0] = GenerateOnePiece(ChessPieceType.Knight, White);
-        ActivePiece[7, 0] = GenerateOnePiece(ChessPieceType.Rook, White);
-        ActivePiece[0, 7] = GenerateOnePiece(ChessPieceType.Rook, Red);
-        ActivePiece[1, 7] = GenerateOnePiece(ChessPieceType.Knight, Red);
-        ActivePiece[2, 7] = GenerateOnePiece(ChessPieceType.Bishop, Red);
-        ActivePiece[3, 7] = GenerateOnePiece(ChessPieceType.Queen, Red);
-        ActivePiece[4, 7] = GenerateOnePiece(ChessPieceType.King, Red);
-        ActivePiece[5, 7] = GenerateOnePiece(ChessPieceType.Bishop, Red);
-        ActivePiece[6, 7] = GenerateOnePiece(ChessPieceType.Knight, Red);
-        ActivePiece[7, 7] = GenerateOnePiece(ChessPieceType.Rook, Red); */
 
         //pawns
         for (int i = 0; i < X_TILES/2; i++)
