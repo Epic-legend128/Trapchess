@@ -30,6 +30,7 @@ public class Chessboard : MonoBehaviour
     private List<ChessPieceClass> DeadPieces_White = new List<ChessPieceClass>();
     private List<ChessPieceClass> DeadPieces_Red = new List<ChessPieceClass>();
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
+    private bool _Turn_;
 
     // ----------------------------------------------------------------------------------------------------------------- //
 
@@ -83,7 +84,7 @@ public class Chessboard : MonoBehaviour
             {
                 if (ActivePiece[collisionPosition.x, collisionPosition.y] != null)
                 {
-                    if (true)
+                    if ((ActivePiece[collisionPosition.x, collisionPosition.y].team == 0 && _Turn_ == true)|| (ActivePiece[collisionPosition.x, collisionPosition.y].team ==1 && _Turn_ == false))
                     {
                         _Dragging_ = ActivePiece[collisionPosition.x, collisionPosition.y];
 
@@ -265,6 +266,7 @@ public class Chessboard : MonoBehaviour
         ActivePiece[previousPosition.x, previousPosition.y] = null;
 
         positionOnePiece(x, y);
+        _Turn_ = !_Turn_;
         return true;
     }
     private void AddHighlightTiles()
