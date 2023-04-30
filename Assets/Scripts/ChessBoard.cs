@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chessboard : MonoBehaviour
+public class ChessBoard : MonoBehaviour
 {
 
     [Header("Board Settings")]
@@ -39,6 +39,7 @@ public class Chessboard : MonoBehaviour
         GenerateThePieces();
         positionAllPieces();
     }
+
     private void Update()
     {
         if (!CameraAsMain)
@@ -117,6 +118,7 @@ public class Chessboard : MonoBehaviour
             }
         }
     }
+
     private void GenerateGrid(float tileGenScale, int tilesX, int tilesY)
     {
         offsetForY += transform.position.y;
@@ -131,6 +133,7 @@ public class Chessboard : MonoBehaviour
             }
         }
     }
+
     private GameObject CreateTile(float tileSize, int x, int y)
     {
         GameObject tileObject = new GameObject($"SQUARE x:{x}, y:{y}, z:{0}");
@@ -165,6 +168,7 @@ public class Chessboard : MonoBehaviour
 
         return tileObject;
     }
+
     private void GenerateThePieces()
     {
         ActivePiece = new ChessPieceClass[X_TILES, Y_TILES];
@@ -172,6 +176,7 @@ public class Chessboard : MonoBehaviour
         int White = 0;
         int Red = 1;
 
+        //pieces in a regular chess board
         /* ActivePiece[0, 0] = GenerateOnePiece(ChessPieceType.Rook, White);
         ActivePiece[1, 0] = GenerateOnePiece(ChessPieceType.Knight, White);
         ActivePiece[2, 0] = GenerateOnePiece(ChessPieceType.Bishop, White);
@@ -189,6 +194,7 @@ public class Chessboard : MonoBehaviour
         ActivePiece[6, 7] = GenerateOnePiece(ChessPieceType.Knight, Red);
         ActivePiece[7, 7] = GenerateOnePiece(ChessPieceType.Rook, Red); */
 
+        //pawns
         for (int i = 0; i < X_TILES/2; i++)
         {
             ActivePiece[i, 0] = GenerateOnePiece(ChessPieceType.Pawn, Red);
@@ -199,6 +205,7 @@ public class Chessboard : MonoBehaviour
             ActivePiece[i+(X_TILES/2), 0] = GenerateOnePiece(ChessPieceType.Pawn, White);
         }
     }
+
     private ChessPieceClass GenerateOnePiece(ChessPieceType type, int team)
     {
         ChessPieceClass ChessObj = Instantiate(prefabs[(int)type - 1], transform).GetComponent<ChessPieceClass>();
@@ -208,6 +215,7 @@ public class Chessboard : MonoBehaviour
         ChessObj.GetComponent<MeshRenderer>().material = teamMaterial[team];
         return ChessObj;
     }
+
     private void positionAllPieces()
     {
         for (int x = 0; x < X_TILES; x++)
@@ -221,16 +229,19 @@ public class Chessboard : MonoBehaviour
             }
         }
     }
+
     private void positionOnePiece(int x, int y, bool force = false)
     {
         ActivePiece[x, y].currentX = x;
         ActivePiece[x, y].currentY = y;
         ActivePiece[x, y].SetPosition(GetTileCenter(x, y), force);
     }
+
     private Vector3 GetTileCenter(int x, int y)
     {
         return new Vector3(x * tileSize, offsetForY, y * tileSize) - extent + new Vector3(tileSize / 2, 0, tileSize / 2);
     }
+
     private bool MoveTo(ChessPieceClass cp, int x, int y)
     {
         if (!IsValidMove(ref availableMoves, new Vector2(x, y)))
@@ -267,6 +278,7 @@ public class Chessboard : MonoBehaviour
         positionOnePiece(x, y);
         return true;
     }
+
     private void AddHighlightTiles()
     {
         for (int i = 0; i < availableMoves.Count; i++)
@@ -274,6 +286,7 @@ public class Chessboard : MonoBehaviour
             tiles[availableMoves[i].x, availableMoves[i].y].layer = LayerMask.NameToLayer("Highlight");
         }
     }
+
     private void RemoveHighlight()
     {
         for (int i = 0; i < availableMoves.Count; i++)
@@ -283,6 +296,7 @@ public class Chessboard : MonoBehaviour
         }
         availableMoves.Clear();
     }
+
     private Vector2Int TilePosition(GameObject collisionInformation)
     {
         for (int x = 0; x < X_TILES; x++)
@@ -295,6 +309,7 @@ public class Chessboard : MonoBehaviour
         }
         return -Vector2Int.one;
     }
+
     private bool IsValidMove(ref List<Vector2Int> moves, Vector2 pos)
     {
         for (int i = 0; i < moves.Count; i++)
@@ -306,5 +321,4 @@ public class Chessboard : MonoBehaviour
         }
         return false;
     }
-
 }

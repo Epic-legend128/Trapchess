@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Pawn : ChessPieceClass
 {
+    //maximum distance a pawn can travel at once
+    const int MAX_STEPS = 3;
+
     public override List<Vector2Int> GetAvailableMoves(ref ChessPieceClass[,] board, int tileCountX, int tileCountY)
     {
         List<Vector2Int> r = new List<Vector2Int>();
 
-        int direction = 1;/*(team == 0) ? 1 : -1*/
+        int direction = 1;
         int lowLimit = (team == 1) ? 0 : tileCountX / 2;
 
-        for (int i = 1; i <= 3; i++)
+        for (int i = 1; i <= MAX_STEPS; i++)
         {
             //forward
             if (currentY + direction * i < tileCountY && board[currentX, currentY + direction * i] == null)
@@ -19,13 +22,13 @@ public class Pawn : ChessPieceClass
                 r.Add(new Vector2Int(currentX, currentY + direction * i));
             }
 
-            //top right
+            //top right diagonal
             if (currentY + direction * i < tileCountY && currentX + i < lowLimit + tileCountX / 2 && board[currentX + i, currentY + direction * i] == null)
             {
                 r.Add(new Vector2Int(currentX + i, currentY + direction * i));
             }
 
-            //top left
+            //top left diagonal
             if (currentY + direction * i < tileCountY && currentX - i >= lowLimit && board[currentX - i, currentY + direction * i] == null)
             {
                 r.Add(new Vector2Int(currentX - i, currentY + direction * i));
@@ -62,7 +65,6 @@ public class Pawn : ChessPieceClass
             }
 
         } */
-
 
         return r;
     }
