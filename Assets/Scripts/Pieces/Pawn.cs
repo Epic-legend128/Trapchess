@@ -22,7 +22,7 @@ public class Pawn : ChessPieceClass
             //forward
             if (fwd && currentY + direction * i < tileCountY)
             {
-                if (board[currentX, currentY + direction * i] == null)
+                if (board[currentX, currentY].isAvailable(ref board, currentX, currentY + direction * i))
                     r.Add(new Vector2Int(currentX, currentY + direction * i));
                 else
                     fwd = false;
@@ -31,7 +31,7 @@ public class Pawn : ChessPieceClass
             //top right diagonal
             if (right && currentY + direction * i < tileCountY && currentX + i < lowLimit + tileCountX / 2)
             {
-                if  (board[currentX + i, currentY + direction * i] == null)
+                if  (board[currentX, currentY].isAvailable(ref board, currentX + i, currentY + direction * i))
                     r.Add(new Vector2Int(currentX + i, currentY + direction * i));
                 else
                     right = false;
@@ -40,43 +40,12 @@ public class Pawn : ChessPieceClass
             //top left diagonal
             if (left && currentY + direction * i < tileCountY && currentX - i >= lowLimit)
             {
-                if (board[currentX - i, currentY + direction * i] == null)
+                if (board[currentX, currentY].isAvailable(ref board, currentX - i, currentY + direction * i))
                     r.Add(new Vector2Int(currentX - i, currentY + direction * i));
                 else
                     left = false;
             }
         }
-
-        //the extra step at the second rank
-        /* if (board[currentX, currentY + direction] == null)
-        {
-            if (team == 0 && currentY == 1 && board[currentX, currentY + (direction * 2)] == null)
-            {
-                r.Add(new Vector2Int(currentX, currentY + (direction * 2)));
-            }
-            if (team == 1 && currentY == 6 && board[currentX, currentY + (direction * 2)] == null)
-            {
-                r.Add(new Vector2Int(currentX, currentY + (direction * 2)));
-            }
-        } */
-
-        //eating
-        /* if (currentX != tileCountX - 1)
-        {
-            if (board[currentX + 1, currentY + direction] != null && board[currentX + 1, currentY + direction].team != team)
-            {
-                r.Add(new Vector2Int(currentX + 1, currentY + direction));
-            }
-
-        }
-        if (currentX != 0)
-        {
-            if (board[currentX - 1, currentY + direction] != null && board[currentX - 1, currentY + direction].team != team)
-            {
-                r.Add(new Vector2Int(currentX - 1, currentY + direction));
-            }
-
-        } */
 
         return r;
     }
