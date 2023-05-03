@@ -233,11 +233,11 @@ public class ChessBoard : MonoBehaviour
 
         Vector2Int previousPosition = new Vector2Int(cp.currentX, cp.currentY);
 
-        if (ActivePiece[previousPosition.x, previousPosition.y] != null)
-            ActivePiece[previousPosition.x, previousPosition.y].trapEffects(ref ActivePiece, x, y, ref _Turn_);
-        
+        int type = ActivePiece[x, y] != null ? (int)ActivePiece[x, y].type : 0;
         ActivePiece[x, y] = cp;
         ActivePiece[previousPosition.x, previousPosition.y] = null;
+        
+        ActivePiece[x, y].trapEffects(ref ActivePiece, ref x, ref y, ref _Turn_, type);
 
         positionOnePiece(x, y);
         _Turn_ = !_Turn_;
@@ -290,10 +290,11 @@ public class ChessBoard : MonoBehaviour
     //place 4 traps per row(2 for each side)
     private void putTraps(int lowY) {
         for (int y = lowY; y<8; y++) {
-            int[] moves = {0, 1, 2, 3};
+            List<int> moves = new List<int> {0, 1, 2, 3};
             for (int i = 0; i<2; i++) {
-                int rand = Random.Range(0, moves.Length);
+                int rand = Random.Range(0, moves.Count);
                 int effect = Random.Range(0, 6);
+                Debug.Log(effect);
                 if (effect == 0) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
@@ -322,6 +323,7 @@ public class ChessBoard : MonoBehaviour
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
                 }
+                moves.Remove(moves[rand]);
             }
         }
     }

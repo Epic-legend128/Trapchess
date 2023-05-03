@@ -11,6 +11,8 @@ public class Pawn : ChessPieceClass
     {
         List<Vector2Int> r = new List<Vector2Int>();
 
+        if (board[currentX, currentY] == null || (int)board[currentX, currentY].type > 1) return r;
+
         int direction = 1;
         int lowLimit = (team == 0) ? 0 : tileCountX / 2;
 

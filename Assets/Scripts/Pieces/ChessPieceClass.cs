@@ -36,35 +36,38 @@ public class ChessPieceClass : MonoBehaviour
     }
 
     //fix effects later
-    public void trapEffects(ref ChessPieceClass[,] board, int x, int y, ref bool _Turn_) {
-        if (board[x, y] == null) return;
+    public void trapEffects(ref ChessPieceClass[,] board, ref int x, ref int y, ref bool _Turn_, int type) {
+        if (board[x, y] == null || type == 0) return;
         Debug.Log("START");
         Debug.Log(x);
         Debug.Log(y);
-        Debug.Log((int)board[x, y].type);
+        Debug.Log(type);
         Debug.Log("END");
-        if ((int)board[x, y].type == 2) {
+        if (type == 2) {
             invinc = true;
         }
-        else if ((int)board[x, y].type == 3) {
+        else if (type == 3) {
             if (invinc)
                 invinc = false;
-            else
+            else {
                 board[currentX, currentY] = null;
+                
+            }
         }
-        else if ((int)board[x, y].type == 4) {
+        else if (type == 4) {
             currentY = 0 > y-3 ? 0 : y-3;
+            y = currentY;
         }
-        else if ((int)board[x, y].type == 5) {
+        else if (type == 5) {
             paralysed = true;
         }
-        else if ((int)board[x, y].type == 6) {
+        else if (type == 6) {
             //respawn piece later
         }
-        else if ((int)board[x, y].type == 7) {
+        else if (type == 7) {
             //quit the game for the player
         }
-        else if ((int)board[x, y].type == 8) {
+        else if (type == 8) {
             _Turn_ = !_Turn_;
         }
     }
