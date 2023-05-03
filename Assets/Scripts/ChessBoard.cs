@@ -38,6 +38,7 @@ public class ChessBoard : MonoBehaviour
     {
         GenerateGrid(1, X_TILES, Y_TILES);
         GenerateThePieces();
+        putTraps(1);
         positionAllPieces();
     }
 
@@ -189,7 +190,7 @@ public class ChessBoard : MonoBehaviour
 
     private ChessPieceClass GenerateOnePiece(ChessPieceType type, int team)
     {
-        ChessPieceClass ChessObj = Instantiate(prefabs[(int)type - 1], transform).GetComponent<ChessPieceClass>();
+        ChessPieceClass ChessObj = Instantiate(prefabs[(int)type <= 1 ? (int)type - 1 : 1], transform).GetComponent<ChessPieceClass>();
 
         ChessObj.type = type;
         ChessObj.team = team;
@@ -232,27 +233,9 @@ public class ChessBoard : MonoBehaviour
 
         Vector2Int previousPosition = new Vector2Int(cp.currentX, cp.currentY);
 
-        if (ActivePiece[x, y] != null)
-        {
-            ChessPieceClass ocp = ActivePiece[x, y];
-            if (cp.team == ocp.team)
-            {
-                return false;
-            }
-            if (ocp.team == 0)
-            {
-                DeadPieces_White.Add(ocp);
-                ocp.SetScale(Vector3.one * 0);
-                // SIDE ANIMATION : ocp.SetPosition(new Vector3(8 * tileSize, offsetForY, -1 * tileSize) - extent + new Vector3(tileSize / 2, 0, tileSize / 2) + (Vector3.forward * 0.3f) * DeadPieces_White.Count);
-            }
-            else
-            {
-                DeadPieces_Red.Add(ocp);
-                ocp.SetScale(Vector3.one * 0);
-                // SIDE ANIMATION : ocp.SetPosition(new Vector3(-1 * tileSize, offsetForY, 8 * tileSize) - extent + new Vector3(tileSize / 2, 0, tileSize / 2) + (Vector3.back * 0.3f) * DeadPieces_Red.Count);
-            }
-        }
-
+        if (ActivePiece[previousPosition.x, previousPosition.y] != null)
+            ActivePiece[previousPosition.x, previousPosition.y].trapEffects(ref ActivePiece, x, y, ref _Turn_);
+        
         ActivePiece[x, y] = cp;
         ActivePiece[previousPosition.x, previousPosition.y] = null;
 
@@ -302,5 +285,44 @@ public class ChessBoard : MonoBehaviour
             }
         }
         return false;
+    }
+
+    //place 4 traps per row(2 for each side)
+    private void putTraps(int lowY) {
+        for (int y = lowY; y<8; y++) {
+            int[] moves = {0, 1, 2, 3};
+            for (int i = 0; i<2; i++) {
+                int rand = Random.Range(0, moves.Length);
+                int effect = Random.Range(0, 6);
+                if (effect == 0) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
+                }
+                else if (effect == 1) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.die, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.die, 0);
+                }
+                else if (effect == 2) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.back, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.back, 0);
+                }
+                else if (effect == 3) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.paralyse, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.paralyse, 0);
+                }
+                else if (effect == 4) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.respawn, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.respawn, 0);
+                }
+                else if (effect == 5) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
+                }
+                else if (effect == 6) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
+                }
+            }
+        }
     }
 }

@@ -35,7 +35,14 @@ public class ChessPieceClass : MonoBehaviour
         }
     }
 
+    //fix effects later
     public void trapEffects(ref ChessPieceClass[,] board, int x, int y, ref bool _Turn_) {
+        if (board[x, y] == null) return;
+        Debug.Log("START");
+        Debug.Log(x);
+        Debug.Log(y);
+        Debug.Log((int)board[x, y].type);
+        Debug.Log("END");
         if ((int)board[x, y].type == 2) {
             invinc = true;
         }
@@ -66,7 +73,7 @@ public class ChessPieceClass : MonoBehaviour
     {
         List<Vector2Int> r = new List<Vector2Int>();
         
-        if (paralysed) return r;
+        if (paralysed || (int)type > 1) return r;
 
         r.Add(new Vector2Int(2, 3));
 
@@ -102,7 +109,9 @@ public class ChessPieceClass : MonoBehaviour
     
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 10);
-        transform.localScale = Vector3.Lerp(transform.localScale, desiredScale, Time.deltaTime * 10);
+        if ((int)type <= 1) {
+            transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 10);
+            transform.localScale = Vector3.Lerp(transform.localScale, desiredScale, Time.deltaTime * 10);
+        }
     }
 }

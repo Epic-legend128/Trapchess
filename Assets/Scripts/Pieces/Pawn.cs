@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pawn : ChessPieceClass
 {
     //maximum distance a pawn can travel at once
-    const int MAX_STEPS = 3;
+    const int MAX_STEPS = 1;
 
     public override List<Vector2Int> GetAvailableMoves(ref ChessPieceClass[,] board, int tileCountX, int tileCountY)
     {
