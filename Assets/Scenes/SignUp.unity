@@ -2922,7 +2922,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SING UP
+  m_text: 'SIGN UP
 
 '
   m_isRightToLeft: 0
