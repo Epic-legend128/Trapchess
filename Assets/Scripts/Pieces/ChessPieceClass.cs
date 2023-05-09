@@ -25,8 +25,8 @@ public class ChessPieceClass : MonoBehaviour
     private Vector3 desiredPosition;
     private Vector3 desiredScale = Vector3.one;
     private bool invinc = false;
-    private bool paralysed = false;
-
+    
+    public bool paralysed = false;
     public int[] TRAPS = new int[8];
 
     public ChessPieceClass() {
@@ -36,8 +36,8 @@ public class ChessPieceClass : MonoBehaviour
     }
 
     //fix effects later
-    public void trapEffects(ref ChessPieceClass[,] board, ref int x, ref int y, ref bool _Turn_, int type) {
-        if (board[x, y] == null || type == 0) return;
+    public int trapEffects(ref ChessPieceClass[,] board, ref int x, ref int y, ref bool _Turn_, int type) {
+        if (board[x, y] == null || type == 0) return -1;
         Debug.Log("START");
         Debug.Log(x);
         Debug.Log(y);
@@ -51,14 +51,16 @@ public class ChessPieceClass : MonoBehaviour
                 invinc = false;
             else {
                 board[currentX, currentY] = null;
-                
+                SetScale(new Vector3(0, 0, 0), true);
+                return 2;
             }
         }
         else if (type == 4) {
-            currentY = 0 > y-3 ? 0 : y-3;
-            y = currentY;
+            //works
+            return (0 > y-2 ? 0 : y-2);
         }
         else if (type == 5) {
+            //works
             paralysed = true;
         }
         else if (type == 6) {
@@ -68,8 +70,11 @@ public class ChessPieceClass : MonoBehaviour
             //quit the game for the player
         }
         else if (type == 8) {
+            //works
             _Turn_ = !_Turn_;
         }
+
+        return -1;
     }
 
     public virtual List<Vector2Int> GetAvailableMoves(ref ChessPieceClass[,] board, int tileCountX, int tileCountY)

@@ -212,6 +212,7 @@ public class ChessBoard : MonoBehaviour
         }
     }
 
+    // 海賊王に俺はなる
     private void positionOnePiece(int x, int y, bool force = false)
     {
         ActivePiece[x, y].currentX = x;
@@ -237,9 +238,21 @@ public class ChessBoard : MonoBehaviour
         ActivePiece[x, y] = cp;
         ActivePiece[previousPosition.x, previousPosition.y] = null;
         
-        ActivePiece[x, y].trapEffects(ref ActivePiece, ref x, ref y, ref _Turn_, type);
+        int tempY = ActivePiece[x, y].trapEffects(ref ActivePiece, ref x, ref y, ref _Turn_, type);
+        Debug.Log(ActivePiece[x, y]);
 
-        positionOnePiece(x, y);
+        //be careful here needs changes
+        
+        ActivePiece[x, y] = null;
+        if (tempY == -1) {
+            //positionOnePiece(x, y);
+        }
+        else {
+            ActivePiece[x, tempY] = cp;
+            ActivePiece[x, y] = null;
+            positionOnePiece(x, tempY, true);
+        }
+
         _Turn_ = !_Turn_;
         return true;
     }
@@ -293,7 +306,7 @@ public class ChessBoard : MonoBehaviour
             List<int> moves = new List<int> {0, 1, 2, 3};
             for (int i = 0; i<2; i++) {
                 int rand = Random.Range(0, moves.Count);
-                int effect = Random.Range(0, 6);
+                int effect = 1;//Random.Range(0, 6);
                 Debug.Log(effect);
                 if (effect == 0) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
