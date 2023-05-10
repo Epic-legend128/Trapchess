@@ -146,13 +146,14 @@ MonoBehaviour:
   tileSize: 1
   offsetForY: 0.15
   Center: {x: -3.57, y: 0.1, z: -3.49}
-  dragOffset: 1.5
+  dragOffset: 2
   prefabs:
   - {fileID: 1029587790571808531, guid: 908486473698a4f3887331bff13224be, type: 3}
   - {fileID: 1029587790571808531, guid: 1ec2685c4a37f4fc58aaec3444fcaf86, type: 3}
   teamMaterial:
   - {fileID: 2100000, guid: 721c2e49302d84033880ca8af249a325, type: 2}
   - {fileID: 2100000, guid: 31c2135aaf38d48ec84f2c57eada1380, type: 2}
+  - {fileID: 2100000, guid: d79a1f9e027954eb4914345380e6e4e4, type: 2}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,9 +44,11 @@ public class ChessPieceClass : MonoBehaviour
         Debug.Log(type);
         Debug.Log("END");
         if (type == 2) {
+            //works
             invinc = true;
         }
         else if (type == 3) {
+            //works
             if (invinc)
                 invinc = false;
             else {

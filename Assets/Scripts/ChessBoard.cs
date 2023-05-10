@@ -239,13 +239,13 @@ public class ChessBoard : MonoBehaviour
         ActivePiece[previousPosition.x, previousPosition.y] = null;
         
         int tempY = ActivePiece[x, y].trapEffects(ref ActivePiece, ref x, ref y, ref _Turn_, type);
-        Debug.Log(ActivePiece[x, y]);
+        /* Debug.Log(ActivePiece[x, y]); */
 
-        //be careful here needs changes
-        
-        ActivePiece[x, y] = null;
-        if (tempY == -1) {
-            //positionOnePiece(x, y);
+        if (tempY == 2) {
+            ActivePiece[x, y] = null;
+        }
+        else if (tempY == -1) {
+            positionOnePiece(x, y);
         }
         else {
             ActivePiece[x, tempY] = cp;
