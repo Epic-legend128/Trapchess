@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum ChessPieceType
 {
@@ -69,7 +70,9 @@ public class ChessPieceClass : MonoBehaviour
             //respawn piece later
         }
         else if (type == 7) {
-            //quit the game for the player
+            //works
+            _Turn_ = !_Turn_;
+            SceneManager.LoadScene(4);
         }
         else if (type == 8) {
             //works

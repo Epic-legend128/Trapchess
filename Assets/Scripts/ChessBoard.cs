@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChessBoard : MonoBehaviour
 {
@@ -249,9 +250,14 @@ public class ChessBoard : MonoBehaviour
         else {
             ActivePiece[x, tempY] = cp;
             ActivePiece[x, y] = null;
+            y = tempY;
             positionOnePiece(x, tempY, true);
         }
-
+        
+        if (y == Y_TILES - 1) {
+            SceneManager.LoadScene(4);
+        }
+        
         _Turn_ = !_Turn_;
         return true;
     }
