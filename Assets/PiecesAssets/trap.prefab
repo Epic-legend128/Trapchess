@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100002, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+  - {fileID: 2100000, guid: d79a1f9e027954eb4914345380e6e4e4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,4 +100,5 @@ MonoBehaviour:
   currentX: 0
   currentY: 0
   type: 0
+  paralysed: 0
   TRAPS: 0200000003000000040000000500000006000000070000000800000009000000

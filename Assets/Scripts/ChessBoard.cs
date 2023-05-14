@@ -194,7 +194,7 @@ public class ChessBoard : MonoBehaviour
 
         ChessObj.type = type;
         ChessObj.team = team;
-        ChessObj.GetComponent<MeshRenderer>().material = teamMaterial[team];
+        ChessObj.GetComponent<MeshRenderer>().material = (int)type <= 1 ? teamMaterial[team] : teamMaterial[2];
         return ChessObj;
     }
 
@@ -239,7 +239,6 @@ public class ChessBoard : MonoBehaviour
         ActivePiece[previousPosition.x, previousPosition.y] = null;
         
         int tempY = ActivePiece[x, y].trapEffects(ref ActivePiece, ref x, ref y, ref _Turn_, type);
-        /* Debug.Log(ActivePiece[x, y]); */
 
         if (tempY == 2) {
             ActivePiece[x, y] = null;
@@ -307,7 +306,7 @@ public class ChessBoard : MonoBehaviour
             for (int i = 0; i<2; i++) {
                 int rand = Random.Range(0, moves.Count);
                 int effect = 1;//Random.Range(0, 6);
-                Debug.Log(effect);
+
                 if (effect == 0) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
