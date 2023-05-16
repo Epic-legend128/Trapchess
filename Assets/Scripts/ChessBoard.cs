@@ -22,6 +22,7 @@ public class ChessBoard : MonoBehaviour
     [SerializeField] private Material[] teamMaterial;
 
     // ----------------------------------------------------------------------------------------------------------------- //
+
     private Vector3 extent;
     private GameObject[,] tiles;
     private Camera CameraAsMain;
@@ -213,7 +214,6 @@ public class ChessBoard : MonoBehaviour
         }
     }
 
-    // 海賊王に俺はなる
     private void positionOnePiece(int x, int y, bool force = false)
     {
         ActivePiece[x, y].currentX = x;
@@ -304,7 +304,7 @@ public class ChessBoard : MonoBehaviour
         }
         return false;
     }
-
+    
     //place 4 traps per row(2 for each side)
     private void putTraps(int lowY) {
         for (int y = lowY; y<8; y++) {
