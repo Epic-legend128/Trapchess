@@ -244,7 +244,11 @@ public class ChessBoard : MonoBehaviour
         if (tempY == 2) {
             ActivePiece[x, y] = null;
         }
-        else if (tempY == -1) {
+        else if (tempY == -1 || tempY == 3) {
+            if (tempY == 3) {
+                ActivePiece[previousPosition.x, previousPosition.y] = GenerateOnePiece(ChessPieceType.Pawn, cp.team);
+                positionOnePiece(previousPosition.x, previousPosition.y);
+            }
             positionOnePiece(x, y);
         }
         else {
@@ -311,35 +315,37 @@ public class ChessBoard : MonoBehaviour
             List<int> moves = new List<int> {0, 1, 2, 3};
             for (int i = 0; i<2; i++) {
                 int rand = Random.Range(0, moves.Count);
-                int effect = 1;//Random.Range(0, 6);
+                int effect = Random.Range(0, 60);
+                const int range = 19;
 
-                if (effect == 0) {
+                if (effect < range) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
                 }
-                else if (effect == 1) {
+                else if (effect < range*2) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.die, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.die, 0);
                 }
-                else if (effect == 2) {
+                else if (effect < range*3) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.back, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.back, 0);
                 }
-                else if (effect == 3) {
+                else if (effect < range*4) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.paralyse, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.paralyse, 0);
                 }
-                else if (effect == 4) {
+                else if (effect < range*5) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.respawn, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.respawn, 0);
                 }
-                else if (effect == 5) {
-                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
-                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
-                }
-                else if (effect == 6) {
+                else if (effect < range*6) {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
+                }
+                else if (effect < range*7) {
+                    //5% chance of spawning
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
                 }
                 moves.Remove(moves[rand]);
             }

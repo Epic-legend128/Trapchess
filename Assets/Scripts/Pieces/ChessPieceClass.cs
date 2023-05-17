@@ -40,8 +40,8 @@ public class ChessPieceClass : MonoBehaviour
     public int trapEffects(ref ChessPieceClass[,] board, ref int x, ref int y, ref bool _Turn_, int type) {
         if (board[x, y] == null || type == 0) return -1;
         Debug.Log("START");
-        Debug.Log(x);
-        Debug.Log(y);
+        /* Debug.Log(x);
+        Debug.Log(y); */
         Debug.Log(type);
         Debug.Log("END");
         if (type == 2) {
@@ -67,7 +67,7 @@ public class ChessPieceClass : MonoBehaviour
             paralysed = true;
         }
         else if (type == 6) {
-            //respawn piece later
+            return 3; // spawn a piece on that place
         }
         else if (type == 7) {
             //works
