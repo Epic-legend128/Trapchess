@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ChessBoard : MonoBehaviour
-{
+{   
+    /* EDITOR VARIABLES */
 
     [Header("Board Settings")]
     [SerializeField] private int X_TILES;
@@ -23,6 +24,8 @@ public class ChessBoard : MonoBehaviour
 
     // ----------------------------------------------------------------------------------------------------------------- //
 
+    // Game Variables
+
     private Vector3 extent;
     private GameObject[,] tiles;
     private Camera CameraAsMain;
@@ -35,6 +38,8 @@ public class ChessBoard : MonoBehaviour
     private bool _Turn_;
 
     // ----------------------------------------------------------------------------------------------------------------- //
+
+    // Functions
 
     private void Awake()
     {
@@ -308,9 +313,10 @@ public class ChessBoard : MonoBehaviour
         }
         return false;
     }
-    
     //place 4 traps per row(2 for each side)
-    private void putTraps(int lowY) {
+
+    private void putTraps(int lowY) 
+    {
         for (int y = lowY; y<8; y++) {
             List<int> moves = new List<int> {0, 1, 2, 3};
             for (int i = 0; i<2; i++) {
@@ -319,7 +325,7 @@ public class ChessBoard : MonoBehaviour
                 const int range = 19;
 
                 if (effect < range) {
-                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
+                    ActivePiece[moves[2], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
                 }
                 else if (effect < range*2) {
