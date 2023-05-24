@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ChessBoard : MonoBehaviour
 {   
@@ -22,6 +24,8 @@ public class ChessBoard : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private Material[] teamMaterial;
 
+    public TMP_Text TurnDisplayText;
+
     // ----------------------------------------------------------------------------------------------------------------- //
 
     // Game Variables
@@ -30,7 +34,7 @@ public class ChessBoard : MonoBehaviour
     private GameObject[,] tiles;
     private Camera CameraAsMain;
     private Vector2Int _Hovering_;
-    private ChessPieceClass[,] ActivePiece;
+    private ChessPieceClass[,] ActivePiece; 
     private ChessPieceClass _Dragging_;
     private List<ChessPieceClass> DeadPieces_White = new List<ChessPieceClass>();
     private List<ChessPieceClass> DeadPieces_Red = new List<ChessPieceClass>();
@@ -268,6 +272,10 @@ public class ChessBoard : MonoBehaviour
         }
         
         _Turn_ = !_Turn_;
+        
+        TurnDisplayText.text = (_Turn_ ? "Black" : "White") + " is playing!";
+        TurnDisplayText.color = (_Turn_ ? Color.black : Color.white);
+        
         return true;
     }
 
