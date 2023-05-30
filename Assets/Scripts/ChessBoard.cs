@@ -344,7 +344,7 @@ public class ChessBoard : MonoBehaviour
                     ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
 =======
                 if (effect < range) {
-                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
+                    ActivePiece[moves[2], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
 >>>>>>> 62d6a31154163663e68c4c1fc0d4ea973bf1c8d6
                 }
