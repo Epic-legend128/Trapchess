@@ -39,6 +39,7 @@ public class ChessBoard : MonoBehaviour
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
     public bool _Turn_;
     public TMP_Text TurnDisplayText;
+
     // ----------------------------------------------------------------------------------------------------------------- //
 
     // Functions
@@ -69,6 +70,7 @@ public class ChessBoard : MonoBehaviour
             {
                 _Hovering_ = collisionPosition;
                 tiles[collisionPosition.x, collisionPosition.y].layer = LayerMask.NameToLayer("Hover");
+                Debug.Log("Something");
             }
             if (_Hovering_ != -Vector2Int.one)
             {
@@ -337,7 +339,6 @@ public class ChessBoard : MonoBehaviour
                 int effect = Random.Range(0, 60);
                 const int range = 19;
 
-<<<<<<< HEAD
                 if (effect < range)
                 {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
@@ -379,11 +380,6 @@ public class ChessBoard : MonoBehaviour
                         ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
                     }
                     moves.Remove(moves[rand]);
-=======
-                if (effect < range) {
-                    ActivePiece[moves[2], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
-                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
->>>>>>> parent of 62d6a31 (Fixed some stuff)
                 }
             }
         }
