@@ -12,8 +12,8 @@ public enum ChessPieceType
     back = 4,
     paralyse = 5,
     respawn = 6,
-    quit = 7,
-    extra = 8
+    extra = 7,
+    quit = 8
 }
 
 public class ChessPieceClass : MonoBehaviour
@@ -72,11 +72,11 @@ public class ChessPieceClass : MonoBehaviour
         else if (type == 7) {
             //works
             _Turn_ = !_Turn_;
-            SceneManager.LoadScene(4);
         }
         else if (type == 8) {
             //works
             _Turn_ = !_Turn_;
+            SceneManager.LoadScene(4);
         }
 
         return -1;

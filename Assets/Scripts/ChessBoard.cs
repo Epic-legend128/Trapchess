@@ -337,10 +337,16 @@ public class ChessBoard : MonoBehaviour
                 int effect = Random.Range(0, 60);
                 const int range = 19;
 
+<<<<<<< HEAD
                 if (effect < range)
                 {
                     ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
                     ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
+=======
+                if (effect < range) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
+>>>>>>> 62d6a31154163663e68c4c1fc0d4ea973bf1c8d6
                 }
                 else if (effect < range * 2)
                 {
