@@ -333,7 +333,7 @@ public class ChessBoard : MonoBehaviour
                 const int range = 19;
 
                 if (effect < range) {
-                    ActivePiece[moves[2], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
                     ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
                 }
                 else if (effect < range*2) {
