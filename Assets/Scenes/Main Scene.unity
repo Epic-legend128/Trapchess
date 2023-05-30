@@ -154,8 +154,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 721c2e49302d84033880ca8af249a325, type: 2}
   - {fileID: 2100000, guid: 31c2135aaf38d48ec84f2c57eada1380, type: 2}
   - {fileID: 2100000, guid: d79a1f9e027954eb4914345380e6e4e4, type: 2}
+<<<<<<< HEAD
   _Turn_: 0
   TurnDisplayText: {fileID: 788130665}
+=======
+>>>>>>> parent of 3df0c5c (Forgotten)
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
