@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class ChessBoard : MonoBehaviour
 {
-    /* EDITOR VARIABLES */
 
     [Header("Board Settings")]
     [SerializeField] private int X_TILES;
@@ -25,9 +24,6 @@ public class ChessBoard : MonoBehaviour
     [SerializeField] private Material[] teamMaterial;
 
     // ----------------------------------------------------------------------------------------------------------------- //
-
-    // Game Variables
-
     private Vector3 extent;
     private GameObject[,] tiles;
     private Camera CameraAsMain;
@@ -42,9 +38,7 @@ public class ChessBoard : MonoBehaviour
 
     // ----------------------------------------------------------------------------------------------------------------- //
 
-    // Functions
-
-    protected void Awake()
+    private void Awake()
     {
         GenerateGrid(1, X_TILES, Y_TILES);
         GenerateThePieces();
@@ -52,7 +46,7 @@ public class ChessBoard : MonoBehaviour
         positionAllPieces();
     }
 
-    protected void Update()
+    private void Update()
     {
         if (!CameraAsMain)
         {
@@ -70,7 +64,6 @@ public class ChessBoard : MonoBehaviour
             {
                 _Hovering_ = collisionPosition;
                 tiles[collisionPosition.x, collisionPosition.y].layer = LayerMask.NameToLayer("Hover");
-                Debug.Log("Something");
             }
             if (_Hovering_ != -Vector2Int.one)
             {
@@ -97,7 +90,7 @@ public class ChessBoard : MonoBehaviour
             {
                 if (ActivePiece[collisionPosition.x, collisionPosition.y] != null)
                 {
-                    if ((ActivePiece[collisionPosition.x, collisionPosition.y].team == 1 && _Turn_) || (ActivePiece[collisionPosition.x, collisionPosition.y].team == 0 && !_Turn_))
+                    if ((ActivePiece[collisionPosition.x, collisionPosition.y].team == 1 && _Turn_)|| (ActivePiece[collisionPosition.x, collisionPosition.y].team == 0 && !_Turn_))
                     {
                         _Dragging_ = ActivePiece[collisionPosition.x, collisionPosition.y];
 
@@ -188,20 +181,20 @@ public class ChessBoard : MonoBehaviour
         int Red = 1;
 
         //pawns
-        for (int i = 0; i < X_TILES / 2; i++)
+        for (int i = 0; i < X_TILES/2; i++)
         {
             ActivePiece[i, 0] = GenerateOnePiece(ChessPieceType.Pawn, White);
         }
 
-        for (int i = 0; i < X_TILES / 2; i++)
+        for (int i = 0; i < X_TILES/2; i++)
         {
-            ActivePiece[i + (X_TILES / 2), 0] = GenerateOnePiece(ChessPieceType.Pawn, Red);
+            ActivePiece[i+(X_TILES/2), 0] = GenerateOnePiece(ChessPieceType.Pawn, Red);
         }
     }
 
     private ChessPieceClass GenerateOnePiece(ChessPieceType type, int team)
     {
-        ChessPieceClass ChessObj = Instantiate(prefabs[1], transform).GetComponent<ChessPieceClass>();
+        ChessPieceClass ChessObj = Instantiate(prefabs[(int)type <= 1 ? (int)type - 1 : 1], transform).GetComponent<ChessPieceClass>();
 
         ChessObj.type = type;
         ChessObj.team = team;
@@ -247,37 +240,27 @@ public class ChessBoard : MonoBehaviour
         int type = ActivePiece[x, y] != null ? (int)ActivePiece[x, y].type : 0;
         ActivePiece[x, y] = cp;
         ActivePiece[previousPosition.x, previousPosition.y] = null;
-
+        
         int tempY = ActivePiece[x, y].trapEffects(ref ActivePiece, ref x, ref y, ref _Turn_, type);
 
-        if (tempY == 2)
-        {
+        if (tempY == 2) {
             ActivePiece[x, y] = null;
         }
-        else if (tempY == -1 || tempY == 3)
-        {
-            if (tempY == 3)
-            {
-                ActivePiece[previousPosition.x, previousPosition.y] = GenerateOnePiece(ChessPieceType.Pawn, cp.team);
-                positionOnePiece(previousPosition.x, previousPosition.y);
-            }
+        else if (tempY == -1) {
             positionOnePiece(x, y);
         }
-        else
-        {
+        else {
             ActivePiece[x, tempY] = cp;
-            ActivePiece[x, y] = null;
-            y = tempY;
-            positionOnePiece(x, tempY, true);
+        
         }
-
-        if (y == Y_TILES - 1)
-        {
+        if (y == Y_TILES - 1) {
             SceneManager.LoadScene(4);
         }
-
+        
+        
         _Turn_ = !_Turn_;
 
+        
         TurnDisplayText.text = (_Turn_ ? "Black" : "White") + " is playing!";
         TurnDisplayText.color = (_Turn_ ? Color.black : Color.white);
 
@@ -326,61 +309,44 @@ public class ChessBoard : MonoBehaviour
         }
         return false;
     }
+
     //place 4 traps per row(2 for each side)
-
-    private void putTraps(int lowY)
-    {
-        for (int y = lowY; y < 8; y++)
-        {
-            List<int> moves = new List<int> { 0, 1, 2, 3 };
-            for (int i = 0; i < 2; i++)
-            {
+    private void putTraps(int lowY) {
+        for (int y = lowY; y<8; y++) {
+            List<int> moves = new List<int> {0, 1, 2, 3};
+            for (int i = 0; i<2; i++) {
                 int rand = Random.Range(0, moves.Count);
-                int effect = Random.Range(0, 60);
-                const int range = 19;
+                int effect = 1;//Random.Range(0, 6);
 
-                if (effect < range)
-                {
-                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
-                    ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
-                    if (effect < range)
-                    {
-                        ActivePiece[moves[2], y] = GenerateOnePiece(ChessPieceType.invinc, 0); // to only have two per game
-                        ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
-                    }
-                    else if (effect < range * 2)
-                    {
-                        ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.die, 0);
-                        ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.die, 0);
-                    }
-                    else if (effect < range * 3)
-                    {
-                        ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.back, 0);
-                        ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.back, 0);
-                    }
-                    else if (effect < range * 4)
-                    {
-                        ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.paralyse, 0);
-                        ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.paralyse, 0);
-                    }
-                    else if (effect < range * 5)
-                    {
-                        ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.respawn, 0);
-                        ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.respawn, 0);
-                    }
-                    else if (effect < range * 6)
-                    {
-                        ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
-                        ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
-                    }
-                    else if (effect < range * 7)
-                    {
-                        //5% chance of spawning
-                        ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
-                        ActivePiece[X_TILES / 2 + moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
-                    }
-                    moves.Remove(moves[rand]);
+                if (effect == 0) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.invinc, 0);
                 }
+                else if (effect == 1) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.die, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.die, 0);
+                }
+                else if (effect == 2) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.back, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.back, 0);
+                }
+                else if (effect == 3) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.paralyse, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.paralyse, 0);
+                }
+                else if (effect == 4) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.respawn, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.respawn, 0);
+                }
+                else if (effect == 5) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.quit, 0);
+                }
+                else if (effect == 6) {
+                    ActivePiece[moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
+                    ActivePiece[X_TILES/2+moves[rand], y] = GenerateOnePiece(ChessPieceType.extra, 0);
+                }
+                moves.Remove(moves[rand]);
             }
         }
     }
