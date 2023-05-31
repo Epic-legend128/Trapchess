@@ -2,6 +2,7 @@ const express = require('express');
 const app = express()
 const http = require('http');
 const mongoose = require('mongoose');
+const { dirname } = require('path');
 const PORT = 8080;
 
 var mongoURI = 'mongodb+srv://admin:Limestick69@log.l1hddbu.mongodb.net/Log';
@@ -10,8 +11,6 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 require('./model/user');
 const account = mongoose.model('users');
-
-// server = ws.listen(PORT)
 
 app.listen(PORT, () => {
     console.log(`[STARTED] -> Server connected to port ${PORT}`);
@@ -24,7 +23,7 @@ app.get('/', async (req, res) => {
 app.get('/account', async (req, res) => {
     const { rUsername, rEmail, rPassword } = req.query;
     if (rUsername == null || rPassword == null) {
-        res.sendFile(__dirname + "/website/signup.html");
+        res.sendFile(__dirname + "/website/index.html");
         return;
     }
 
