@@ -1,5 +1,4 @@
-/*
-using System.Collections;
+/* using System.Collections;
 using System.Collections.Generic;
 using Unity.Networking.Transport;
 using UnityEngine;
@@ -12,12 +11,12 @@ public class Server2 : MonoBehaviour
     {
         Instance = this;
     }
-    public NetworkDrivder NetDrive;
-    private NativeList<NetworkConnection> Connections;
+    public NetworkDriver NetDrive;
+    private List<NetworkConnection> Connections;
     private bool ServerActive = false;
     private const float Delay = 20f;
     private float LastDelay;
-    public Action Drop;
+    public System.Action<string> Drop;
     // [SerializeField] int PORT = 8000;
     public void Init(ushort PORT)
     {
@@ -26,5 +25,4 @@ public class Server2 : MonoBehaviour
         NetDrive.Port = PORT;
         NetDrive.Bind(endPoint);
     }
-}
-*/
+}*/
