@@ -195,7 +195,7 @@ public class ChessBoard : MonoBehaviour
     private ChessPieceClass GenerateOnePiece(ChessPieceType type, int team)
     {
         ChessPieceClass ChessObj = Instantiate(prefabs[(int)type <= 1 ? (int)type - 1 : 1], transform).GetComponent<ChessPieceClass>();
-
+        
         ChessObj.type = type;
         ChessObj.team = team;
         ChessObj.GetComponent<MeshRenderer>().material = (int)type <= 1 ? teamMaterial[team] : teamMaterial[2];
