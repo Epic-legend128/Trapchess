@@ -136,13 +136,16 @@ public class ChessPieceClass : MonoBehaviour
             transform.localScale = desiredScale;
         }
     }
-
     private void Update()
     {
+        
         if ((int)type <= 1)
         {
             transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 10);
-            transform.localScale = Vector3.Lerp(transform.localScale, desiredScale, Time.deltaTime * 10);
         }
+    }
+    private void Awake()
+    {
+        transform.position = new Vector3(10, 100, Time.deltaTime * 10);
     }
 }
