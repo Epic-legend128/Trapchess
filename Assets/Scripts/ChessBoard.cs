@@ -178,7 +178,7 @@ public class ChessBoard : MonoBehaviour
         ActivePiece = new ChessPieceClass[X_TILES, Y_TILES];
 
         int White = 0;
-        int Red = 1;
+        int Black = 1;
 
         //pawns
         for (int i = 0; i < X_TILES / 2; i++)
@@ -188,7 +188,7 @@ public class ChessBoard : MonoBehaviour
 
         for (int i = 0; i < X_TILES / 2; i++)
         {
-            ActivePiece[i + (X_TILES / 2), 0] = GenerateOnePiece(ChessPieceType.Pawn, Red);
+            ActivePiece[i + (X_TILES / 2), 0] = GenerateOnePiece(ChessPieceType.Pawn, Black);
         }
     }
 

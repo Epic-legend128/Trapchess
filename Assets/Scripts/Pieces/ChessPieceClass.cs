@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public enum ChessPieceType
 {
@@ -29,6 +30,8 @@ public class ChessPieceClass : MonoBehaviour
 
     public bool paralysed = false;
     public int[] TRAPS = new int[8];
+
+    public TMP_Text PawnText;
 
     public ChessPieceClass()
     {
