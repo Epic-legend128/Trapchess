@@ -219,7 +219,7 @@ public class ChessBoard : MonoBehaviour
     private void positionOnePiece(int x, int y, bool force = false)
     {
         ActivePiece[x, y].currentX = x;
-        ActivePiece[x, y].currentY = y;
+        ActivePiece[x, y].currentY = y ;
         ActivePiece[x, y].SetPosition(GetTileCenter(x, y), force);
     }
 

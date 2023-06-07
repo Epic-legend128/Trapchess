@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4871090109421046498}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.95000076, y: 0.916578, z: 6.9999986}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: 0, y: 1, z: 10}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,6 +99,6 @@ MonoBehaviour:
   team: 0
   currentX: 0
   currentY: 0
-  type: 0
+  type: 1
   paralysed: 0
   TRAPS: 0200000003000000040000000500000006000000070000000800000009000000
