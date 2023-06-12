@@ -1,9 +1,5 @@
-<<<<<<< Updated upstream
-/* using System.Collections;
-=======
 using System;
 using System.Collections;
->>>>>>> Stashed changes
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Networking.Transport;
@@ -17,11 +13,7 @@ public class Server2 : MonoBehaviour
         Instance = this;
     }
     public NetworkDriver NetDrive;
-<<<<<<< Updated upstream
-    private List<NetworkConnection> Connections;
-=======
     private NativeList<NetworkConnection> Connections;
->>>>>>> Stashed changes
     private bool ServerActive = false;
     private const float Delay = 20f;
     private float LastDelay;
@@ -48,9 +40,6 @@ public class Server2 : MonoBehaviour
         Connections = new NativeList<NetworkConnection>(2, Allocator.Persistent); // Max amount is 2
         ServerActive = true;
     }
-<<<<<<< Updated upstream
-}*/
-=======
     public void StopServing()
     {
         if (ServerActive == true)
@@ -138,4 +127,3 @@ public class Server2 : MonoBehaviour
     }
 
 }
->>>>>>> Stashed changes
