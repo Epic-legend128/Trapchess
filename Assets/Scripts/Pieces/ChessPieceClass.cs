@@ -42,23 +42,16 @@ public class ChessPieceClass : MonoBehaviour
         }
     }
 
-    //fix effects later
     public int trapEffects(ref ChessPieceClass[,] board, ref int x, ref int y, ref bool _Turn_, int type)
     {
         if (board[x, y] == null || type == 0) return -1;
-        Debug.Log("START");
-        Debug.Log("Pawn at X: " + x);
-        Debug.Log("Pawn at Y: " + y);
-        Debug.Log("Pawn Hit Trap : " + type);
-        Debug.Log("END");
+
         if (type == 2)
         {
-            //works
             invinc = true;
         }
         else if (type == 3)
         {
-            //works
             if (invinc)
                 invinc = false;
             else
@@ -70,27 +63,22 @@ public class ChessPieceClass : MonoBehaviour
         }
         else if (type == 4)
         {
-            //works
             return (0 > y - 2 ? 0 : y - 2);
         }
         else if (type == 5)
         {
-            //works
             paralysed = true;
         }
         else if (type == 6)
         {
-            //works
             return 3;
         }
         else if (type == 7)
         {
-            //works
             _Turn_ = !_Turn_;
         }
         else if (type == 8)
         {
-            //works
             _Turn_ = !_Turn_;
             SceneManager.LoadScene(4);
         }
