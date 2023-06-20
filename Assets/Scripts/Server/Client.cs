@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Networking;
 using Unity.Networking.Transport;
 using UnityEngine;
 
 public class Client : MonoBehaviour
 {
     public static Client Instance { set; get; }
+
     private void Awake()
     {
         Instance = this;
@@ -19,13 +21,15 @@ public class Client : MonoBehaviour
     public Action Drop;
 
     public void __init__(string IP_ADDRESS, ushort PORT)
-    {
+    {   
+        //Debug.Log(IP_ADDRESS);
         NetDrive = NetworkDriver.Create();
         NetworkEndPoint endPoint = NetworkEndPoint.Parse(IP_ADDRESS, PORT);
         SingularConnection = NetDrive.Connect(endPoints);
         ServerActive = true;
         EventListener();
     }
+
     public void StopServing()
     {
         if (ServerActive == true)
@@ -36,10 +40,12 @@ public class Client : MonoBehaviour
             SingularConnection = default(NetworkConnection);
         }
     }
+
     public void OnDestroy()
     {
         StopServing();
     }
+
     public void Update()
     {
         if (ServerActive == false)
@@ -50,6 +56,7 @@ public class Client : MonoBehaviour
         CheckAlive();
         UpdateMsgPipe();
     }
+
     private void CheckAlive()
     {
         if (!SingularConnection.IsCreated && isActive)
@@ -59,6 +66,7 @@ public class Client : MonoBehaviour
             StopServing();
         }
     }
+
     private void UpdateMsgPipe()
     {
         DataStreamReader stream;
@@ -82,22 +90,26 @@ public class Client : MonoBehaviour
             }
         }
     }
-    public void SendToServer(NetMessage message)
+
+    public void SendToServer(NetworkMessage message)
     {
         DataStreamWriter writer;
         NetDrive.BeginSend(SingularConnection, out writer);
         // message.Serialize(ref writer);
         driver.EndSend(writer);
     }
+
     private void EventListener()
     {
         // NetUtility.KeepConnectionStable += OnKeepAlive;
     }
+
     private void EventDestroyer()
     {
         // NetUtility.KeepConnectionStable -= OnKeepAlive;
     }
-    private void OnKeepAlive(NetMessage message)
+
+    private void OnKeepAlive(NetworkMessage message)
     {
         SendToServer(message);
     }

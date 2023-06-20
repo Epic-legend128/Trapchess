@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -136,6 +137,7 @@ public class ChessPieceClass : MonoBehaviour
             transform.localScale = desiredScale;
         }
     }
+
     private void Update()
     {
         
@@ -144,6 +146,7 @@ public class ChessPieceClass : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 10);
         }
     }
+
     private void Awake()
     {
         transform.position = new Vector3(10, 100, Time.deltaTime * 10);

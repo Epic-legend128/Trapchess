@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Networking;
 using Unity.Networking.Transport;
 using UnityEngine;
 
@@ -40,22 +41,25 @@ public class Server2 : MonoBehaviour
         Connections = new NativeList<NetworkConnection>(2, Allocator.Persistent); // Max amount is 2
         ServerActive = true;
     }
+
     public void StopServing()
     {
-        if (ServerActive == true)
+        if (ServerActive)
         {
             NetDrive.Dispose();
             Connections.Dispose();
             ServerActive = false;
         }
     }
+
     public void OnDestroy()
     {
         StopServing();
     }
+
     public void Update()
     {
-        if (ServerActive == false)
+        if (!ServerActive)
         {
             return;
         }
@@ -66,6 +70,7 @@ public class Server2 : MonoBehaviour
         GetConnection();
         UpdateMsgPipe();
     }
+
     private void DestroyBadServer()
     {
         for (int i = 0; i < Connections.Length; i++)
@@ -77,6 +82,7 @@ public class Server2 : MonoBehaviour
             }
         }
     }
+
     private void GetConnection()
     {
         NetworkConnection NetConnection;
@@ -85,6 +91,7 @@ public class Server2 : MonoBehaviour
             Connections.Add(NetConnection);
         }
     }
+
     private void UpdateMsgPipe()
     {
         DataStreamReader stream;
@@ -107,20 +114,22 @@ public class Server2 : MonoBehaviour
             }
         }
     }
-    public void SendToClient(NetworkConnection currentConnection, NetMessage message)
+
+    public void SendToClient(NetworkConnection currentConnection, NetworkMessage message)
     {
         DataStreamWriter writer;
         NetDrive.BeginSend(currentConnection, out writer);
         message.Serialize(ref writer);
         driver.EndSend(writer);
     }
-    public void BroadCast(NetMessage message)
+
+    public void BroadCast(NetworkMessage message)
     {
         for (int i = 0; i < Connections.Length; i++)
         {
             if (Connections[i].IsCreated)
             {
-                // Debug.Log($"[SERVER] Sending {message.Code} to {Connections[i].InternalId}");
+                Debug.Log($"[SERVER] Sending {message.Code} to {Connections[i].InternalId}");
                 SendToClient(Connections[i], msg);
             }
         }
