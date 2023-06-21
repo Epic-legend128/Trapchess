@@ -46,6 +46,11 @@ public class ChessPieceClass : MonoBehaviour
     {
         if (board[x, y] == null || type == 0) return -1;
 
+        if (invinc && (type != 6 || type != 2 || type != 7)) {
+            invinc = false;
+            return 200;
+        }
+
         if (type == 2)
         {
             invinc = true;

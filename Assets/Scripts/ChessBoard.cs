@@ -251,6 +251,7 @@ public class ChessBoard : MonoBehaviour
         {
             ActivePiece[x, y] = null;
             TrapActivation.text = "Death Trap!";
+            TurnDisplayText.color = Color.red;
         }
         else if (tempY >= 100 || tempY == -3 || tempY == -1)
         {
@@ -259,18 +260,23 @@ public class ChessBoard : MonoBehaviour
                 ActivePiece[previousPosition.x, previousPosition.y] = GenerateOnePiece(ChessPieceType.Pawn, cp.team);
                 positionOnePiece(previousPosition.x, previousPosition.y);
                 TrapActivation.text = "Spawning Pawn!";
+                TurnDisplayText.color = Color.green;
             }
             else if (tempY == 102) {
                 TrapActivation.text = "Invicibility!";
-            }
-            else if (tempY == 103) {
-                TrapActivation.text = "Death Avoided!";
+                TurnDisplayText.color = Color.green;
             }
             else if (tempY == 105) {
                 TrapActivation.text = "Pawn Paralysed!";
+                TurnDisplayText.color = Color.red;
             }
             else if (tempY == 107) {
                 TrapActivation.text = "Extra Turn!";
+                TurnDisplayText.color = Color.green;
+            }
+            else if (tempY == 200) {
+                TrapActivation.text = "Invincibility Used!";
+                TurnDisplayText.color = Color.red;
             }
             positionOnePiece(x, y);
         }
@@ -278,6 +284,7 @@ public class ChessBoard : MonoBehaviour
         {
             ActivePiece[x, tempY] = cp;
             TrapActivation.text = "Moving Back!";
+            TurnDisplayText.color = Color.red;
             positionOnePiece(x, tempY);
         }
 
