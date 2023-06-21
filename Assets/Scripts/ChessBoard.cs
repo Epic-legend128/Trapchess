@@ -35,6 +35,7 @@ public class ChessBoard : MonoBehaviour
     private List<Vector2Int> availableMoves = new List<Vector2Int>();
     public bool _Turn_;
     public TMP_Text TurnDisplayText;
+    public TMP_Text TrapActivation;
 
     // ----------------------------------------------------------------------------------------------------------------- //
 
@@ -243,24 +244,43 @@ public class ChessBoard : MonoBehaviour
 
         int tempY = ActivePiece[x, y].trapEffects(ref ActivePiece, ref x, ref y, ref _Turn_, type);
 
-        if (tempY == 2)
+
+        TrapActivation.text = "";
+        
+        if (tempY == -2)
         {
             ActivePiece[x, y] = null;
+            TrapActivation.text = "Death Trap!";
         }
-        else if (tempY == -1 || tempY == 3)
+        else if (tempY >= 100 || tempY == -3 || tempY == -1)
         {
-            if (tempY == 3)
+            if (tempY == -3)
             {
                 ActivePiece[previousPosition.x, previousPosition.y] = GenerateOnePiece(ChessPieceType.Pawn, cp.team);
                 positionOnePiece(previousPosition.x, previousPosition.y);
+                TrapActivation.text = "Spawning Pawn!";
+            }
+            else if (tempY == 102) {
+                TrapActivation.text = "Invicibility!";
+            }
+            else if (tempY == 103) {
+                TrapActivation.text = "Death Avoided!";
+            }
+            else if (tempY == 105) {
+                TrapActivation.text = "Pawn Paralysed!";
+            }
+            else if (tempY == 107) {
+                TrapActivation.text = "Extra Turn!";
             }
             positionOnePiece(x, y);
         }
         else
         {
             ActivePiece[x, tempY] = cp;
-
+            TrapActivation.text = "Moving Back!";
+            positionOnePiece(x, tempY);
         }
+
         if (y == Y_TILES - 1)
         {
             SceneManager.LoadScene(4);

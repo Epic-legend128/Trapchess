@@ -58,7 +58,7 @@ public class ChessPieceClass : MonoBehaviour
             {
                 board[currentX, currentY] = null;
                 SetScale(new Vector3(0, 0, 0), true);
-                return 2;
+                return -2;
             }
         }
         else if (type == 4)
@@ -71,7 +71,7 @@ public class ChessPieceClass : MonoBehaviour
         }
         else if (type == 6)
         {
-            return 3;
+            return -3;
         }
         else if (type == 7)
         {
@@ -82,8 +82,8 @@ public class ChessPieceClass : MonoBehaviour
             _Turn_ = !_Turn_;
             SceneManager.LoadScene(4);
         }
-
-        return -1;
+        
+        return (int) type+100;
     }
 
     public virtual List<Vector2Int> GetAvailableMoves(ref ChessPieceClass[,] board, int tileCountX, int tileCountY)
@@ -113,6 +113,8 @@ public class ChessPieceClass : MonoBehaviour
         desiredPosition = position;
         if (force)
         {
+            float y = (float)desiredPosition.y + 0.4f;
+            transform.position = new Vector3(desiredPosition.x, y, desiredPosition.z);
             transform.position = desiredPosition;
         }
     }
@@ -131,7 +133,8 @@ public class ChessPieceClass : MonoBehaviour
         
         if ((int)type <= 1)
         {
-            transform.position = Vector3.Lerp(transform.position, desiredPosition, Time.deltaTime * 10);
+            float y = desiredPosition.y + 0.4f;
+            transform.position = Vector3.Lerp(transform.position, new Vector3(desiredPosition.x, y, desiredPosition.z), Time.deltaTime * 10);
         }
     }
 

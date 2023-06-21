@@ -255,6 +255,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d79a1f9e027954eb4914345380e6e4e4, type: 2}
   _Turn_: 0
   TurnDisplayText: {fileID: 1056036275}
+  TrapActivation: {fileID: 1216915690}
 --- !u!1001 &664740331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,11 +285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1732036683999538947, guid: a942e8b1babc948db98b488a0f847b9a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.52
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1732036683999538947, guid: a942e8b1babc948db98b488a0f847b9a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.05
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1732036683999538947, guid: a942e8b1babc948db98b488a0f847b9a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -536,7 +537,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1056036274}
-  - {fileID: 1428561590}
+  - {fileID: 1216915689}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -771,7 +772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -138, y: -197}
+  m_AnchoredPosition: {x: -171.2, y: -217}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1056036275
@@ -871,7 +872,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056036273}
   m_CullTransparentMesh: 1
---- !u!1 &1428561589
+--- !u!1 &1216915688
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -879,23 +880,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1428561590}
-  - component: {fileID: 1428561592}
-  - component: {fileID: 1428561591}
+  - component: {fileID: 1216915689}
+  - component: {fileID: 1216915691}
+  - component: {fileID: 1216915690}
   m_Layer: 5
-  m_Name: PawnTurn
+  m_Name: TrapActivation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1428561590
+--- !u!224 &1216915689
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428561589}
+  m_GameObject: {fileID: 1216915688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -906,16 +907,16 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 130.2, y: -197.4}
+  m_AnchoredPosition: {x: 104.5, y: -217}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1428561591
+--- !u!114 &1216915690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428561589}
+  m_GameObject: {fileID: 1216915688}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -929,7 +930,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Trap Activated!
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -998,11 +999,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1428561592
+--- !u!222 &1216915691
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428561589}
+  m_GameObject: {fileID: 1216915688}
   m_CullTransparentMesh: 1
