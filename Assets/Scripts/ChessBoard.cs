@@ -199,7 +199,12 @@ public class ChessBoard : MonoBehaviour
         
         ChessObj.type = type;
         ChessObj.team = team;
-        ChessObj.GetComponent<MeshRenderer>().material = (int)type <= 1 ? teamMaterial[team] : teamMaterial[2];
+        if ((int) type <= 1) {
+            ChessObj.GetComponent<MeshRenderer>().material = (int)type <= 1 ? teamMaterial[team] : teamMaterial[2];
+        }
+        else {
+            ChessObj.GetComponent<MeshRenderer>().material = null;
+        }
         return ChessObj;
     }
 
